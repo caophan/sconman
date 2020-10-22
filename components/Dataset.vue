@@ -84,13 +84,16 @@
       v-model="file"
       @change="selectFile"
     />
+    <loading :value="loading" message="Upload..." />
   </v-navigation-drawer>
 </template>
 
 <script>
+import Loading from '@/components/Loading.vue'
 const jsonify = (res) => res.json()
 
 export default {
+  components: { Loading },
   data: () => ({
     buckets: [],
     file: null,
@@ -99,6 +102,7 @@ export default {
     bucketKey: '',
     x: 0,
     y: 0,
+    loading: false,
     currentItem: undefined,
     menu: {
       bucket: {
@@ -213,6 +217,7 @@ export default {
     },
 
     selectFile(file) {
+      this.loading = true
       const bucketKey = this.currentItem.id
       const formData = new FormData()
       formData.append('fileToUpload', file)
@@ -222,6 +227,7 @@ export default {
         body: formData,
       }).then((res) => {
         this.file = null
+        this.loading = false
         this.currentItem.children = []
         const temp = this.buckets
         this.buckets = []
