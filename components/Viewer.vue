@@ -97,7 +97,8 @@ export default {
 
       Autodesk.Viewing.Initializer(options, () => {
         this.viewer = new Autodesk.Viewing.GuiViewer3D(
-          document.getElementById('forgeViewer')
+          document.getElementById('forgeViewer'),
+          { extensions: ['CustomMenuExtension'] }
         )
         this.viewer.start()
         const documentId = 'urn:' + urn

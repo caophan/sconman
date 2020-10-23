@@ -11,6 +11,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use('/forge/oauth', require('./routes/oauth'));
 app.use('/forge/oss', require('./routes/oss'));
 app.use('/forge/modelderivative', require('./routes/modelderivative'));
+app.use('/sconman', require('./routes/viewer'))
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(err.statusCode).json(err);

@@ -17,6 +17,9 @@ export default {
     script: [
       {
         src: 'https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js'
+      },
+      {
+        src: 'menu.js'
       }
     ]
   },
