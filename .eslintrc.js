@@ -5,7 +5,8 @@ module.exports = {
     node: true,
   },
   globals: {
-    "Autodesk": true
+    "Autodesk": true,
+    "THREE": true
   },
   parserOptions: {
     parser: 'babel-eslint',

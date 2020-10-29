@@ -20,8 +20,12 @@ class MyContextMenu extends Autodesk.Viewing.UI.ObjectContextMenu {
           const selSet = this.viewer.getSelection()
           this.viewer.clearSelection()
           const color = new THREE.Vector4(1, 0, 0, 1)
-          for (let i = 0; i < selSet.length; i++) {
-            this.viewer.setThemingColor(selSet[i], color)
+          // this.viewer.model.getBulkProperties(selSet, ['Length'], props => console.log(props))
+          for (const dbId of selSet) {
+            this.viewer.setThemingColor(dbId, color)
+            this.viewer.getProperties(dbId, props => {
+              console.log(props)
+            });
           }
 
           fetch('/api/sconman/done', {
@@ -33,6 +37,17 @@ class MyContextMenu extends Autodesk.Viewing.UI.ObjectContextMenu {
           })
         },
       })
+
+      if (status.hasVisible) {
+        menu.push({
+          title: "Hide Selected",
+          target: () => {
+            var selected = this.viewer.impl.selector.getAggregateSelection();
+            this.viewer.impl.visibilityManager.aggregateHide(selected);
+            this.viewer.clearSelection();
+          }
+        });
+      }
     } else {
       menu.push({
         title: 'Undo',
@@ -41,6 +56,13 @@ class MyContextMenu extends Autodesk.Viewing.UI.ObjectContextMenu {
         },
       })
     }
+
+    menu.push({
+      title: "Show All Objects",
+      target: () => {
+        this.viewer.showAll();
+      }
+    });
     return menu
   }
 }

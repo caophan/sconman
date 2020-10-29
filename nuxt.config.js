@@ -20,6 +20,9 @@ export default {
       },
       {
         src: 'menu.js'
+      },
+      {
+        src: 'markup.js'
       }
     ]
   },

@@ -98,9 +98,13 @@ export default {
       Autodesk.Viewing.Initializer(options, () => {
         this.viewer = new Autodesk.Viewing.GuiViewer3D(
           document.getElementById('forgeViewer'),
-          { extensions: ['CustomMenuExtension'] }
+          { extensions: ['CustomMenuExtension', 'MarkupExtension'] }
         )
         this.viewer.start()
+        this.viewer.addEventListener(
+          Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT,
+          (event) => console.log(event)
+        )
         const documentId = 'urn:' + urn
         Autodesk.Viewing.Document.load(
           documentId,
@@ -118,6 +122,8 @@ export default {
       const viewables = doc.getRoot().search(filter)
       this.viewer.loadDocumentNode(doc, viewables[0]).then((i) => {
         // documented loaded, any action?
+        // this.viewer.loadExtension('CustomMenuExtension')
+        // this.viewer.loadExtension('MarkupExtension')
       })
     },
 
