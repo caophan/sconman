@@ -70,14 +70,6 @@ class GeometryMarkupExtension extends Autodesk.Viewing.Extension {
         })
     }
 
-    createColorMaterial () {
-        const material = new THREE.MeshBasicMaterial();
-    
-        const materials = this.viewer.impl.getMaterials()
-        materials.addMaterial('labelMaterial', material, true)
-        return material
-    }
-
     showGeometry(show) {
         if (this.group === undefined) {
             // do we have access to the instance tree?
@@ -102,7 +94,7 @@ class GeometryMarkupExtension extends Autodesk.Viewing.Extension {
 
             const rotation = this.viewer.getCamera().rotation
 
-            const material = this.createColorMaterial()
+            const material = this.viewer.impl.getMaterials().defaultMaterial
 
             for (const nodeId in this._frags) {
                 if (this._frags[nodeId].length > 0) {
