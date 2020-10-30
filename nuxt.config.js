@@ -23,6 +23,9 @@ export default {
       },
       {
         src: 'markup.js'
+      },
+      {
+        src: '3dmarkup.js'
       }
     ]
   },
